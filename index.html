@@ -170,7 +170,6 @@
       font-weight: 600;
     }
 
-    /* Short calculation inputs */
     .calc-input-row {
       display: flex;
       align-items: center;
@@ -189,7 +188,6 @@
     }
     .calc-input:focus { border-color: var(--primary); }
 
-    /* Tables */
     .table-container {
       overflow-x: auto;
       margin: 12px 0;
@@ -297,7 +295,7 @@
     <div class="header-container">
       <div class="brand">
         <h1>ĐỊA LÍ 12 - ĐỀ CƯƠNG GIỮA KÌ I</h1>
-        <p>Hệ thống trắc nghiệm, bài tập tự luận và tra cứu ôn tập</p>
+        <p>Hệ thống trắc nghiệm chấm điểm tự động và tra cứu đáp án chi tiết</p>
       </div>
       <div class="nav-tabs">
         <button class="tab-btn active" onclick="switchTab('test')">📝 Làm Bài Test</button>
@@ -317,9 +315,6 @@
 
       <div class="section-title">PHẦN III. TRẮC NGHIỆM TRẢ LỜI NGẮN (7 CÂU TÍNH TOÁN)</div>
       <div id="short-container"></div>
-
-      <div class="section-title">PHẦN B. CÂU HỎI TỰ LUẬN</div>
-      <div id="essay-test-container"></div>
     </div>
 
     <!-- TAB 2: ĐÁP ÁN ĐỀ CƯƠNG -->
@@ -645,22 +640,6 @@
       `).join("");
     }
 
-    function renderEssayTest() {
-      const container = document.getElementById("essay-test-container");
-      container.innerHTML = essayQuestions.map((item, idx) => `
-        <div class="card">
-          <div class="q-title" style="color:var(--primary); font-weight:700;">${item.title}</div>
-          <textarea style="width:100%; height:90px; padding:10px; border-radius:8px; border:1px solid var(--border); font-family:inherit; font-size:0.9rem;" placeholder="Gõ ý ôn tập vào đây để tự rèn luyện phản xạ..."></textarea>
-          <button class="btn btn-secondary" style="margin-top:8px; font-size:0.85rem;" onclick="toggleEssayKey('essay-box-${idx}')">
-            💡 Xem hướng dẫn trả lời chuẩn
-          </button>
-          <div id="essay-box-${idx}" style="display:none; margin-top:12px; padding:14px; background:#f8fafc; border-radius:8px; border:1px solid var(--border);">
-            ${item.content}
-          </div>
-        </div>
-      `).join("");
-    }
-
     function renderAnswersTab() {
       // 1. MCQ
       document.getElementById("ans-mcq-list").innerHTML = mcqQuestions.map((m, idx) => `
@@ -695,7 +674,7 @@
         </div>
       `).join("");
 
-      // 4. Essay
+      // 4. Essay (Full answers kept in Tab 2)
       document.getElementById("ans-essay-list").innerHTML = essayQuestions.map(e => `
         <div class="card ans-item">
           <div class="q-title" style="color:var(--primary); font-size:1.05rem;">${e.title}</div>
@@ -723,11 +702,6 @@
         document.querySelectorAll('.tab-btn')[1].classList.add('active');
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function toggleEssayKey(id) {
-      const el = document.getElementById(id);
-      el.style.display = (el.style.display === "block") ? "none" : "block";
     }
 
     function gradeQuiz() {
@@ -816,7 +790,6 @@
     renderMCQ();
     renderTF();
     renderShort();
-    renderEssayTest();
     renderAnswersTab();
   </script>
 </body>
